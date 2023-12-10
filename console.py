@@ -6,9 +6,6 @@ from models.base_model import BaseModel
 from models import storage
 
 
-models = {"BaseModel": BaseModel()}
-
-
 class HBNBCommand(cmd.Cmd):
     """Represents the console shell"""
     prompt = "(hbtn) "
@@ -130,4 +127,5 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
+    models = {"BaseModel": BaseModel()}
     HBNBCommand().cmdloop()
