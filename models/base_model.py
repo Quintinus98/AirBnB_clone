@@ -16,7 +16,7 @@ class BaseModel():
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
+        storage.new(self)
 
     def __str__(self):
         """string doc"""
@@ -35,8 +35,8 @@ class BaseModel():
         """Returns a dict containing all key/values"""
         attr = self.__dict__.copy()
         attr["__class__"] = self.__class__.__name__
-        attr["created_at"] = datetime.isoformat(getattr(self, 'created_at'))
-        attr["updated_at"] = datetime.isoformat(getattr(self, 'updated_at'))
+        attr["created_at"] = self.created_at.isoformat()
+        attr["updated_at"] = self.updated_at.isoformat()
         return attr
 
     def create(self, **kwargs):

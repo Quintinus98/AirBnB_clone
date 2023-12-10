@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """Console - Inherits from cmd"""
 
-import json
 import cmd
-import sys
 from models.base_model import BaseModel
 from models import storage
 
@@ -24,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the program
         """
-        sys.exit()
+        return True
 
     def emptyline(self):
         print("", end="")
