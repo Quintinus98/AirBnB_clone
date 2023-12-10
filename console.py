@@ -10,6 +10,7 @@ class HBNBCommand(cmd.Cmd):
     """Represents the console shell"""
     prompt = "(hbtn) "
     file = None
+    models = {"BaseModel": BaseModel()}
 
     def do_EOF(self, arg):
         """EOF reached
@@ -31,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
         """
         if len(args) == 0:
             print("** class name missing **")
-        elif args not in models.keys():
+        elif args not in self.models.keys():
             print("** class doesn't exist **")
         else:
             obj = models[args]
@@ -46,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if args == []:
             print("** class name missing **")
-        elif args[0] not in models.keys():
+        elif args[0] not in self.models.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if args == []:
             print("** class name missing **")
-        elif args[0] not in models.keys():
+        elif args[0] not in self.models.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -92,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
             for fs in all_files.values():
                 my_ls.append(fs.__str__())
             print("{}".format(my_ls))
-        elif arg not in models.keys():
+        elif arg not in self.models.keys():
             print("** class doesn't exist **")
         else:
             for v in all_files.values():
@@ -109,7 +110,7 @@ class HBNBCommand(cmd.Cmd):
         all_files = storage.all()
         if args == []:
             print("** class name missing **")
-        elif args[0] not in models.keys():
+        elif args[0] not in self.models.keys():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -127,5 +128,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    models = {"BaseModel": BaseModel()}
     HBNBCommand().cmdloop()
