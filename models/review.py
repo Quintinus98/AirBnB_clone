@@ -10,5 +10,6 @@ class Review(BaseModel):
     user_id = ""
     text = ""
 
+
 if __name__ == "__main__":
     Review()
