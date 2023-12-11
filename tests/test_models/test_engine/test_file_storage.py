@@ -12,17 +12,21 @@ class TestFileStorage(unittest.TestCase):
     """Represents the unittest for file_storage"""
 
     def test_file_type(self):
+        """Test file type"""
         self.assertTrue(type(FileStorage()), FileStorage)
 
     def test_all(self):
+        """test Filestorage all method"""
         self.assertEqual(dict, type(storage.all()))
 
     def test_new(self):
+        """test Filestorage new method"""
         base = BaseModel()
         storage.new(base)
         self.assertIn("BaseModel.{}".format(base.id), storage.all().keys())
 
     def test_save(self):
+        """test Filestorage save method"""
         base = BaseModel()
         storage.new(base)
         storage.save()
@@ -32,6 +36,7 @@ class TestFileStorage(unittest.TestCase):
             self.assertIn("BaseModel.{}".format(base.id), text)
 
     def test_reload(self):
+        """Reloads the test"""
         try:
             os.remove("file.json")
         except FileNotFoundError:
@@ -45,6 +50,7 @@ class TestFileStorage(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """Tears down the created file.json"""
         try:
             os.remove("file.json")
         except IOError:

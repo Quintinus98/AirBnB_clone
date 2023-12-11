@@ -13,22 +13,26 @@ import os
 class TestBaseModel(unittest.TestCase):
     """Represents Unittest for BaseModel"""
     def test_create(self):
+        """Test Basemodel creation"""
         base = BaseModel()
         key = '{}.{}'.format(base.__class__.__name__, base.id)
         self.assertIn(key, storage.all().keys())
 
     def test_create_unique(self):
+        """Test Basemodel creation unique"""
         base1 = BaseModel()
         base2 = BaseModel()
         self.assertNotEqual(base1.id, base2.id)
 
     def test_create_diff_times(self):
+        """Test Basemodel creation with diff times"""
         base1 = BaseModel()
         sleep(0.5)
         base2 = BaseModel()
         self.assertNotEqual(base1.created_at, base2.created_at)
 
     def test_str(self):
+        """Test Basemodel string representation"""
         date = repr(datetime.today())
         base = BaseModel()
         base.id = "12342-dla12"
@@ -40,6 +44,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("'updated_at': '{}'".format(date), base_str)
 
     def test_kwargs_instantiation(self):
+        """Test Basemodel creation with kwargs"""
         date = datetime.today()
         diso = date.isoformat()
         base = BaseModel(id="1323-lsd23", created_at=diso, updated_at=diso)
@@ -48,6 +53,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(base.created_at, date)
 
     def test_save_to_file(self):
+        """Test Basemodel save to file"""
         base = BaseModel()
         sleep(0.5)
         created_at = base.created_at
@@ -56,12 +62,14 @@ class TestBaseModel(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """Teardown file.json after use"""
         try:
             os.remove("file.json")
         except IOError:
             pass
 
     def test_to_dict(self):
+        """Test Basemodel conversion to dictionary"""
         self.assertTrue(dict, type(BaseModel().to_dict()))
 
 
