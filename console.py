@@ -8,7 +8,7 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """Represents the console shell"""
-    prompt = "(hbtn) "
+    prompt = "(hbnb) "
     file = None
     models = {"BaseModel": BaseModel()}
 
@@ -23,6 +23,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
+        """Empty line + Enter shouldn't execute anything
+        """
         print("", end="")
 
     def do_create(self, args):
