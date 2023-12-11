@@ -37,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         elif args not in self.models.keys():
             print("** class doesn't exist **")
         else:
-            obj = models[args]
+            obj = self.models[args]
             obj.save()
             print(obj.id)
 
@@ -56,12 +56,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             all_files = storage.all()
             key = '{}.{}'.format(args[0], args[1])
-        try:
-            value = all_files[key]
-        except KeyError:
-            print("** no instance found **")
-        else:
-            print(value)
+            try:
+                value = all_files[key]
+                print(value)
+            except KeyError:
+                print("** no instance found **")
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id
@@ -78,12 +77,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             all_files = storage.all()
             key = '{}.{}'.format(args[0], args[1])
-        try:
-            del all_files[key]
-        except KeyError:
-            print("** no instance found **")
-        else:
-            storage.save()
+            try:
+                del all_files[key]
+                storage.save()
+            except KeyError:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances based or
