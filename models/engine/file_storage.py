@@ -17,7 +17,7 @@ class FileStorage():
 
     def all(self):
         """Returns the dictionary"""
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """Sets in __objects the obj with key"""
@@ -34,7 +34,7 @@ class FileStorage():
         """deserializes the JSON file to __objects"""
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r', encoding='utf-8') as f:
-                objs = json.load(f)
+                objs = json.loads(f.read())
             for k, v in objs.items():
                 obj = self.eval(v["__class__"])(**v)
-                self.new(obj)
+                self.__objects[k] = obj

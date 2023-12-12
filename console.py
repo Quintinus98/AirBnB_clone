@@ -15,7 +15,6 @@ from models.state import State
 class HBNBCommand(cmd.Cmd):
     """Represents the console shell"""
     prompt = "(hbnb) "
-    file = None
     models = {"BaseModel": BaseModel(), "User": User(),
               "City": City(), "Place": Place(), "Review": Review(),
               "State": State(),  "Amenity": Amenity()}
@@ -105,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             for v in all_files.values():
-                if v["__class__"] == arg:
+                if v.__class__.__name__ == arg:
                     my_ls.append(v.__str__())
             print("{}".format(my_ls))
 
