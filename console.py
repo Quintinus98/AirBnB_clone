@@ -128,10 +128,28 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 3:
             print("** value missing **")
         else:
-            key = '{}.{}'.format(args[0], args[1])
-            if args[2] not in ["id", "created_at", "updated_at"]:
-                all_files[key][args[2]] = (args[3]).replace('"', '')
-                storage.save()
+            for i in range(len(args[1:]) + 1):
+                if args[i][0] == '"':
+                    args[i] = args[i].replace('"', "")
+            key = args[0] + '.' + args[1]
+            attr_k = args[2]
+            attr_v = args[3]
+            try:
+                if attr_v.isdigit():
+                    attr_v = int(attr_v)
+                elif float(attr_v):
+                    attr_v = float(attr_v)
+            except ValueError:
+                pass
+            class_attr = type(all_files[key]).__dict__
+            if attr_k in class_attr.keys():
+                try:
+                    attr_v = type(class_attr[attr_k])(attr_v)
+                except Exception:
+                    print("Entered an incorrect type")
+                    return
+            setattr(all_files[key], attr_k, attr_v)
+            storage.save()
 
 
 if __name__ == "__main__":

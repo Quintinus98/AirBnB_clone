@@ -5,6 +5,13 @@
 """
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage():
@@ -35,6 +42,6 @@ class FileStorage():
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 objs = json.loads(f.read())
-            for k, v in objs.items():
-                obj = self.eval(v["__class__"])(**v)
-                self.__objects[k] = obj
+            for v in objs.values():
+                model_class = v['__class__']
+                self.new(eval(model_class)(**v))
